@@ -29,12 +29,13 @@ def hasher(request):
 
 
 def your_hash(request):
-    text = request.POST['Input Text']
+
     try:
+        text = request.POST['Input Text']
         hash = request.POST['hash']
     except(KeyError):
 
-        return (render(request,'details.html',{'error_message':"You didn't selecte a hash methode"}))
+        return (render(request,'details.html',{'error_message':"Some elements are missing for the Hash method!!"}))
     texte_hashe = hasher_fun(text, hash)
 
     context = {
@@ -49,7 +50,11 @@ def ip_address(request):
     return(render(request,'IP_address_checker.html'))
 
 def your_IP(request):
-    ip=request.POST['Input Text']
+    try:
+        ip=request.POST['Input Text']
+    except(KeyError):
+
+        return (render(request, 'details.html', {'error_message': "Some elements are missing for the IP Checker method!!"}))
     text=IP_fun(ip)
 
     return(render(request,'your_IP.html',{'text':text}))
